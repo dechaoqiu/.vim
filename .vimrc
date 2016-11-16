@@ -9,12 +9,16 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'rizzatti/dash.vim'
+" Plugin 'simnalamburt/vim-mundo'
+Plugin 'sjl/gundo.vim'
 Plugin 'mileszs/ack.vim'
 " Plugin 'tpope/vim-commentary'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-endwise'
 Plugin 'raimondi/delimitmate'
 Plugin 'mxw/vim-jsx'
+Plugin 'keith/swift.vim'
 " Plugin 'valloric/youcompleteme'
 
 " The following are examples of different formats supported.
@@ -217,10 +221,13 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_max_files=0 
+let g:ctrlp_max_depth=40
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -250,3 +257,11 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+nmap <silent> <leader>d <Plug>DashSearch
+nnoremap <F5> :GundoToggle<CR>
+let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+if executable('ag')
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard']
+endif
